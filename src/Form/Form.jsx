@@ -2,11 +2,23 @@ import { useMemo, useState } from "react";
 import * as Yup from "yup";
 
 const formSchema = Yup.object().shape({
-  name: Yup.string().required("Name is required").min(2, "Name must be at least 2 characters"),
-  age: Yup.number().required("Age is required").positive("Age must be a positive number").integer("Age must be an integer").min(18, "Age must be at least 18"),
-  email: Yup.string().required("Email is required").email("Invalid email address"),
-  password: Yup.string().required("Password is required").min(8, "Password must be at least 8 characters"),
-  confirmPassword: Yup.string().required("Confirm Password is required").oneOf([Yup.ref("password")], "Passwords must match"),
+  name: Yup.string()
+    .required("Name is required")
+    .min(2, "Name must be at least 2 characters"),
+  age: Yup.number()
+    .required("Age is required")
+    .positive("Age must be a positive number")
+    .integer("Age must be an integer")
+    .min(18, "Age must be at least 18"),
+  email: Yup.string()
+    .required("Email is required")
+    .email("Invalid email address"),
+  password: Yup.string()
+    .required("Password is required")
+    .min(8, "Password must be at least 8 characters"),
+  confirmPassword: Yup.string()
+    .required("Confirm Password is required")
+    .oneOf([Yup.ref("password")], "Passwords must match"),
 });
 
 function FormError({ children }) {
@@ -60,7 +72,7 @@ export function Form() {
       <label>Name</label>
       <input type="text" name="name" value={formState.name} />
       {formErrors.name && <FormError>{formErrors.name}</FormError>}
-    
+
       <label>E-mail</label>
       <input type="email" name="email" value={formState.email} />
       {formErrors.email && <FormError>{formErrors.email}</FormError>}
@@ -79,7 +91,9 @@ export function Form() {
         <FormError>{formErrors.confirmPassword}</FormError>
       )}
 
-      <button type="submit" style={{marginTop: "20px"}}>Submit</button>
+      <button type="submit" style={{ marginTop: "20px" }}>
+        Submit
+      </button>
     </form>
   );
 }
